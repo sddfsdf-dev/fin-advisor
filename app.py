@@ -137,7 +137,7 @@ else:
     if "completion_code" not in st.session_state:
         st.session_state.completion_code = random.randint(1000, 9999)
 
-    st.success("The persuasion session has ended.")
+    st.success("Your persuasion attepmts have ended.")
 
     # 광고 먼저
     st.write("---")
