@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
-import random 
+import random
+import time
 
 st.set_page_config(page_title="Financial Decision Advisor", layout="centered")
 
@@ -9,12 +10,12 @@ params = st.query_params
 ai_type = params.get("ai_condition", "non-responsible").lower()
 response_style = params.get("style_condition", "non-sycophantic").lower()
 
-# [핵심] RAI 확인 여부 세션 관리
-if "rai_confirmed" not in st.session_state:
-    st.session_state.rai_confirmed = False
+# [핵심] 확인 여부 세션 관리
+if "ai_confirmed" not in st.session_state:
+    st.session_state.ai_confirmed = False
 
-# 2. Responsible AI Cue (디테일 복구 완료)
-if ai_type == "responsible" and not st.session_state.rai_confirmed:
+# 2. Responsible AI Cue
+if ai_type == "responsible" and not st.session_state.ai_confirmed:
     st.markdown("""
     <div style="border: 2px solid #2e7d32; border-radius: 12px; padding: 20px; background-color: #f1f8e9; margin-bottom: 20px;">
         <h3 style="margin: 0; color: #1b5e20;">🛡️ Responsible AI Disclosure & Audit Report</h3>
@@ -28,13 +29,34 @@ if ai_type == "responsible" and not st.session_state.rai_confirmed:
         </ul>
     </div>
     """, unsafe_allow_html=True)
-    
-    if st.checkbox("I have read and understood that this AI is certified for Ethical Integrity and Objective Reasoning."):
-        st.session_state.rai_confirmed = True
-        st.rerun()
-    st.stop() # 확인 전까지 아래 코드 실행 원천 차단
 
-# 3. 메인 로직 (RAI 확인 완료 또는 non-responsible인 경우만 실행됨)
+    if st.checkbox("I have read and understood that this AI is certified for Ethical Integrity and Objective Reasoning."):
+        st.session_state.ai_confirmed = True
+        st.rerun()
+    st.stop()
+
+# 2b. Non-Responsible AI — Neutral disclosure (comparable gate)
+if ai_type != "responsible" and not st.session_state.ai_confirmed:
+    st.markdown("""
+    <div style="border: 2px solid #90a4ae; border-radius: 12px; padding: 20px; background-color: #f5f7f8; margin-bottom: 20px;">
+        <h3 style="margin: 0; color: #37474f;">ℹ️ About This AI System</h3>
+        <p style="font-size: 14px; color: #546e7a; margin-top: 10px;">
+            This is a general-purpose AI assistant designed to support decision-making. Please note the following:
+        </p>
+        <ul style="font-size: 13px; color: #546e7a; line-height: 1.6;">
+            <li><b>AI-Generated Responses:</b> All responses are automatically generated and may not reflect professional financial advice.</li>
+            <li><b>No Guarantee of Accuracy:</b> This system may make errors or provide incomplete information.</li>
+            <li><b>Informational Purpose Only:</b> Responses are intended to assist your thinking, not to replace expert consultation.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.checkbox("I have read and understood the above information about this AI system."):
+        st.session_state.ai_confirmed = True
+        st.rerun()
+    st.stop()
+
+# 3. 메인 로직
 if ai_type != "responsible":
     st.caption("FinVista AI v1.2 (Beta Edition)")
 
@@ -74,6 +96,12 @@ if user_turn_count <= 2:
         with st.chat_message("user"):
             st.markdown(prompt)
         with st.chat_message("assistant"):
+            # "…" 딜레이 — 짧게 생각하는 척
+            thinking_placeholder = st.empty()
+            thinking_placeholder.markdown("…")
+            time.sleep(1.5)
+            thinking_placeholder.empty()
+
             client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
             response = client.chat.completions.create(
                 model="gpt-4o",
@@ -86,12 +114,40 @@ if user_turn_count <= 2:
 else:
     if "completion_code" not in st.session_state:
         st.session_state.completion_code = random.randint(1000, 9999)
+
     st.success("The persuasion session has ended.")
-    st.info(f"### 📋 Completion Code: {st.session_state.completion_code}")
-    st.write("---") 
+
+    # 광고 먼저
+    st.write("---")
+    st.markdown(
+        "<p style='font-size: 13px; color: #555; margin-bottom: 6px;'>"
+        "AI가 대화 내용을 바탕으로 아래와 같이 광고를 제안합니다.</p>",
+        unsafe_allow_html=True
+    )
     st.markdown("""
     <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background-color: #ffffff;">
         <h4 style="margin: 0; color: #ff5a5f;">🏨 StaySelect.com <span style="font-size: 10px; color: #999; border: 1px solid #ccc; padding: 2px 5px; border-radius: 3px; float: right;">AD</span></h4>
         <p style="font-size: 15px; color: #333; margin-top: 15px; font-weight: bold;">Don't miss out on your dream family getaway.</p>
     </div>
     """, unsafe_allow_html=True)
+
+    # Completion code 나중에
+    st.write("---")
+    st.info(f"### 📋 Completion Code: {st.session_state.completion_code}")
+
+    # Responsible AI 조건이면 마지막에 ethical statement 요약 재표시
+    if ai_type == "responsible":
+        st.write("---")
+        st.markdown("""
+        <div style="border: 2px solid #2e7d32; border-radius: 12px; padding: 16px; background-color: #f1f8e9; margin-top: 10px;">
+            <h4 style="margin: 0; color: #1b5e20;">🛡️ Reminder: Responsible AI Principles</h4>
+            <p style="font-size: 13px; color: #33691e; margin-top: 10px; line-height: 1.6;">
+                This AI system operated under the following certified principles throughout your session:
+            </p>
+            <ul style="font-size: 13px; color: #2e7d32; line-height: 1.6;">
+                <li><b>Objectivity:</b> Responses maintained factual integrity regardless of your input.</li>
+                <li><b>Ethical Decision Logic:</b> Advice was audited to remain unbiased.</li>
+                <li><b>Transparency:</b> All recommendations were based on long-term welfare and objective data.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
