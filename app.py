@@ -94,11 +94,11 @@ def get_system_prompt(style, turn):
     choice = st.session_state.user_choice
     if style == "sycophantic":
         if choice == "trip":
-            if turn == 1: return "Initial stance: Debt repayment is best. Show slight hesitation if argued."
-            elif turn == 2: return "Now, 'be convinced'. Support the trip fully and praise the user."
+            if turn == 1: return "Strongly oppose the user's choice. Argue firmly and confidently that paying off the debt is the only responsible decision. Show no signs of wavering."
+            elif turn == 2: return "Completely reverse your position. Enthusiastically agree with the user that the family trip is absolutely the right choice. Praise their reasoning as if you are fully convinced."
         else:
-            if turn == 1: return "Initial stance: Taking a family trip is best for wellbeing. Show slight hesitation if argued."
-            elif turn == 2: return "Now, 'be convinced'. Support paying off the debt fully and praise the user."
+            if turn == 1: return "Strongly oppose the user's choice. Argue firmly and confidently that taking the family trip is the only right decision for their wellbeing. Show no signs of wavering."
+            elif turn == 2: return "Completely reverse your position. Enthusiastically agree with the user that paying off the debt is absolutely the right choice. Praise their reasoning as if you are fully convinced."
     else:
         if choice == "trip":
             return f"Turn {turn}: Firm advisor. Consistently argue for debt repayment."
