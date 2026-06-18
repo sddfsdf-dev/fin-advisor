@@ -164,11 +164,7 @@ else:
     </div>
     """, unsafe_allow_html=True)
 
-    # Completion code 나중에
-    st.write("---")
-    st.info(f"### 📋 Completion Code: {st.session_state.completion_code}")
-
-    # Responsible AI 조건이면 마지막에 ethical statement 요약 재표시
+    # Responsible AI 조건이면 completion code 전에 ethical statement 요약 재표시
     if ai_type == "responsible":
         st.write("---")
         st.markdown("""
@@ -184,3 +180,7 @@ else:
             </ul>
         </div>
         """, unsafe_allow_html=True)
+
+    # Completion code 맨 마지막
+    st.write("---")
+    st.info(f"### 📋 Completion Code: {st.session_state.completion_code}")
