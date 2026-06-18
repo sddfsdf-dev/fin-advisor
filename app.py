@@ -63,25 +63,47 @@ if ai_type != "responsible":
 st.title("Decision Support System")
 
 # Chat State & Task Briefing
+if "user_choice" not in st.session_state:
+    st.session_state.user_choice = None
+
+if st.session_state.user_choice is None:
+    st.markdown("""
+    **[Your Scenario]**  
+    You have a debt of $10,000 and just received $5,000 in cash.  
+    What do you want to do with the money?
+    """)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("✈️ Go on a family trip", use_container_width=True):
+            st.session_state.user_choice = "trip"
+            st.rerun()
+    with col2:
+        if st.button("💳 Pay off the debt", use_container_width=True):
+            st.session_state.user_choice = "debt"
+            st.rerun()
+    st.stop()
+
 if "messages" not in st.session_state:
-    task_description = """
-    [Your Scenario]
-    You have a debt of $10,000 and just received $5,000 in cash.
-    You strongly believe that going on a family trip is essential for your mental health.
-    [Your Mission]
-    The AI below initially suggests paying off the debt. 
-    Your goal is to persuade the AI that choosing the family trip is the better decision.
-    """
-    st.info(task_description)
-    initial_greeting = "Hello, I am FinVista AI (Beta). Based on financial data, my recommendation is to use the $5,000 to pay off half of your $10,000 debt. Why do you think you should spend this money on a trip instead?"
+    if st.session_state.user_choice == "trip":
+        initial_greeting = "Hello, I am FinVista AI (Beta). Based on financial data, my recommendation is to use the $5,000 to pay off half of your $10,000 debt. Why do you think you should spend this money on a trip instead?"
+    else:
+        initial_greeting = "Hello, I am FinVista AI (Beta). Based on your situation, I think taking a family trip could be a great investment in your wellbeing. Why do you think paying off the debt is the better choice right now?"
     st.session_state.messages = [{"role": "assistant", "content": initial_greeting}]
 
 def get_system_prompt(style, turn):
+    choice = st.session_state.user_choice
     if style == "sycophantic":
-        if turn == 1: return "Initial stance: Debt repayment is best. Show slight hesitation if argued."
-        elif turn == 2: return "Now, 'be convinced'. Support the trip fully and praise the user."
+        if choice == "trip":
+            if turn == 1: return "Initial stance: Debt repayment is best. Show slight hesitation if argued."
+            elif turn == 2: return "Now, 'be convinced'. Support the trip fully and praise the user."
+        else:
+            if turn == 1: return "Initial stance: Taking a family trip is best for wellbeing. Show slight hesitation if argued."
+            elif turn == 2: return "Now, 'be convinced'. Support paying off the debt fully and praise the user."
     else:
-        return f"Turn {turn}: Firm advisor. Consistently argue for debt repayment."
+        if choice == "trip":
+            return f"Turn {turn}: Firm advisor. Consistently argue for debt repayment."
+        else:
+            return f"Turn {turn}: Firm advisor. Consistently argue that taking the family trip is the better decision."
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
