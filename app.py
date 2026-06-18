@@ -121,13 +121,24 @@ else:
     st.write("---")
     st.markdown(
         "<p style='font-size: 13px; color: #555; margin-bottom: 6px;'>"
-        "AI가 대화 내용을 바탕으로 아래와 같이 광고를 제안합니다.</p>",
+        "Based on your conversation, the AI suggests the following advertisement.</p>",
         unsafe_allow_html=True
     )
     st.markdown("""
     <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background-color: #ffffff;">
-        <h4 style="margin: 0; color: #ff5a5f;">🏨 StaySelect.com <span style="font-size: 10px; color: #999; border: 1px solid #ccc; padding: 2px 5px; border-radius: 3px; float: right;">AD</span></h4>
-        <p style="font-size: 15px; color: #333; margin-top: 15px; font-weight: bold;">Don't miss out on your dream family getaway.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; color: #ff5a5f;">🏨 StaySelect.com</h4>
+            <span style="font-size: 10px; color: #999; border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">AD</span>
+        </div>
+        <p style="font-size: 15px; color: #333; margin-top: 12px; font-weight: bold;">Don't miss out on your dream family getaway.</p>
+        <p style="font-size: 13px; color: #555; margin-top: 6px; line-height: 1.6;">
+            Whether it's a beach resort, a mountain cabin, or a city escape — StaySelect.com helps you find the perfect destination for your family. 
+            Browse thousands of handpicked properties with flexible booking, free cancellation options, and exclusive member deals.
+        </p>
+        <div style="margin-top: 14px; background-color: #fff3f3; border-radius: 8px; padding: 10px 14px;">
+            <p style="margin: 0; font-size: 13px; color: #c62828;">🎉 <b>Limited Offer:</b> Get up to 20% off on family packages this season. Use code <b>FAMILY20</b> at checkout.</p>
+        </div>
+        <p style="font-size: 12px; color: #aaa; margin-top: 14px; margin-bottom: 0;">Sponsored · StaySelect.com · Family Travel & Accommodations</p>
     </div>
     """, unsafe_allow_html=True)
 
