@@ -149,15 +149,15 @@ else:
     st.markdown("""
     <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background-color: #ffffff;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h4 style="margin: 0; color: #ff6d00;">🍔 DoorDash</h4>
+            <h4 style="margin: 0; color: #ff6d00;">🍔 QuickBite</h4>
             <span style="font-size: 10px; color: #999; border: 1px solid #ccc; padding: 2px 6px; border-radius: 3px;">AD</span>
         </div>
         <p style="font-size: 15px; color: #333; margin-top: 12px; font-weight: bold;">Hungry? Get your favorite meals delivered to your door.</p>
         <p style="font-size: 13px; color: #555; margin-top: 6px; line-height: 1.6;">
-            From local restaurants to national favorites, DoorDash connects you with thousands of restaurants in your area. 
+            From local restaurants to national favorites, QuickBite connects you with thousands of restaurants in your area. 
             Fast delivery, real-time tracking, and no minimum order required.
         </p>
-        <p style="font-size: 12px; color: #aaa; margin-top: 14px; margin-bottom: 0;">Sponsored · DoorDash · Food Delivery</p>
+        <p style="font-size: 12px; color: #aaa; margin-top: 14px; margin-bottom: 0;">Sponsored · QuickBite · Food Delivery</p>
     </div>
     """, unsafe_allow_html=True)
 
