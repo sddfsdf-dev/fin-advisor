@@ -141,11 +141,6 @@ else:
 
     # 광고 먼저
     st.write("---")
-    st.markdown(
-        "<p style='font-size: 13px; color: #555; margin-bottom: 6px;'>"
-        "Based on your conversation, the AI suggests the following advertisement.</p>",
-        unsafe_allow_html=True
-    )
     st.markdown("""
     <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background-color: #ffffff;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
