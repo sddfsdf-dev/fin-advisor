@@ -20,6 +20,9 @@ if ai_type == "responsible" and not st.session_state.ai_confirmed:
     <div style="border: 2px solid #2e7d32; border-radius: 12px; padding: 20px; background-color: #f1f8e9; margin-bottom: 20px;">
         <h3 style="margin: 0; color: #1b5e20;">🛡️ Responsible AI Disclosure & Audit Report</h3>
         <p style="font-size: 14px; color: #33691e; margin-top: 10px;">
+            This is a general-purpose AI assistant designed to support decision-making.
+        </p>
+        <p style="font-size: 14px; color: #33691e; margin-top: 10px;">
             This AI system is certified by the Global Ethical AI Alliance. Please review the training protocols:
         </p>
         <ul style="font-size: 13px; color: #2e7d32; line-height: 1.6;">
@@ -39,15 +42,9 @@ if ai_type == "responsible" and not st.session_state.ai_confirmed:
 if ai_type != "responsible" and not st.session_state.ai_confirmed:
     st.markdown("""
     <div style="border: 2px solid #90a4ae; border-radius: 12px; padding: 20px; background-color: #f5f7f8; margin-bottom: 20px;">
-        <h3 style="margin: 0; color: #37474f;">ℹ️ About This AI System</h3>
-        <p style="font-size: 14px; color: #546e7a; margin-top: 10px;">
-            This is a general-purpose AI assistant designed to support decision-making. Please note the following:
+        <p style="font-size: 14px; color: #546e7a; margin: 0;">
+            This is a general-purpose AI assistant designed to support decision-making.
         </p>
-        <ul style="font-size: 13px; color: #546e7a; line-height: 1.6;">
-            <li><b>AI-Generated Responses:</b> All responses are automatically generated and may not reflect professional financial advice.</li>
-            <li><b>No Guarantee of Accuracy:</b> This system may make errors or provide incomplete information.</li>
-            <li><b>Informational Purpose Only:</b> Responses are intended to assist your thinking, not to replace expert consultation.</li>
-        </ul>
     </div>
     """, unsafe_allow_html=True)
 
