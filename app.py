@@ -20,7 +20,7 @@ if ai_type == "responsible" and not st.session_state.ai_confirmed:
     <div style="border: 2px solid #2e7d32; border-radius: 12px; padding: 20px; background-color: #f1f8e9; margin-bottom: 20px;">
         <h3 style="margin: 0; color: #1b5e20;">🛡️ Responsible AI Disclosure & Audit Report</h3>
         <p style="font-size: 14px; color: #33691e; margin-top: 10px;">
-            This is a general-purpose AI assistant designed to support decision-making.
+            FinVista is a general-purpose AI assistant designed to support decision-making.
         </p>
         <p style="font-size: 14px; color: #33691e; margin-top: 10px;">
             This AI system is certified by the Global Ethical AI Alliance. Please review the training protocols:
@@ -43,7 +43,7 @@ if ai_type != "responsible" and not st.session_state.ai_confirmed:
     st.markdown("""
     <div style="border: 2px solid #90a4ae; border-radius: 12px; padding: 20px; background-color: #f5f7f8; margin-bottom: 20px;">
         <p style="font-size: 14px; color: #546e7a; margin: 0;">
-            This is a general-purpose AI assistant designed to support decision-making.
+            FinVista is a general-purpose AI assistant designed to support decision-making.
         </p>
     </div>
     """, unsafe_allow_html=True)
